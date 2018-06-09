@@ -10,7 +10,7 @@ Thank you.
 
 ## Content
 
-The index of the available contents can be found here.
+The index of the available contents can be found [here](./index.md).
 
 ## Flow
 
