@@ -81,7 +81,7 @@ I don't think anyone ever saw a checkbox 300px wide. This end by either setting 
 
 It's worth mentioning that element selectors are **case-insenstive** but it is always discouraged to utilize uppercase when you write CSS in general.
 
-###Class selector 
+### Class selector 
 
 An HTML class is an attribute used to landmark an element in order to select it. It's like a label we give to the elements to facilitate the way of *selecting* them in the future.
 
