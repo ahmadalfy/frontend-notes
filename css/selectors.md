@@ -81,7 +81,7 @@ I don't think anyone ever saw a checkbox 300px wide. This end by either setting 
 
 It's worth mentioning that element selectors are case-insensitive but it is always discouraged to utilize uppercase when you write CSS in general.
 
-### Class selector 
+### Class selector
 
 An HTML class is an attribute used to landmark an element in order to select it. It's like a label we give to the elements to facilitate the way of *selecting* them in the future.
 
@@ -125,6 +125,24 @@ When the user move the pointer over the `<a>` tag, the underlying text below the
 > 📜 **A little bit of history **
 >
 > The `:hover` selector is supported on every type of elements but that wasn't always the case. On IE6, the `:hover` selector used to work on anchor tags only. Also, IE7 and IE8 used to ignore the `:hover` selector if a strict doctype is not used.  Developers used to mimic the hover effect by using JavaScript to add and remove classes like `.hover` on `mouseEnter` / `mouseLeave` events on elements. This was a commonly used technique when creating drop down menus as the the submenu was being displayed when the user hover the `li` and not the `a` inside. This technique was first described on [a list a part](http://alistapart.com/article/dropdowns) and was called Suckerfish Dropdown back in 2003!
+
+Be careful of using the hover to change the dimensions of an element or the size of its text. It will reposition the surrounding elements and text and will also trigger what we call the *reflow* or *layout thrashing* which is a performance bottle neck (see reflow, repainting). Instead, use CSS transition to achieve a similar effect. Consider the following:
+
+```css
+a {
+  font-size: 12px;  
+}
+
+/* This is horrible and you don't want to do that */
+a:hover {
+    font-size: 16px;
+}
+
+/* This won't trigger reflow and will perform better */
+a:hover {
+    transform: scale(1.34);
+}
+```
 
 #### `:focus` selector
 
@@ -229,5 +247,4 @@ Remaining:
   * Direct descendent `>`
   * Direct sibling `+`
   * All siblings `~`
-
   
