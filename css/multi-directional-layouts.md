@@ -50,7 +50,7 @@ Sadly the support for the `:dir()` pseudo-class isn't high enough. It's currentl
 
 As defined by the W3C; logical properties and values  provide us with the ability to control layout through logical, rather than physical, direction and dimension mappings. Let's skip the technical jargons and jump directly to the details; it provide us with new properties and values that will evaluate differently according to certain conditions.
 
-Let's say we have a paragraph in our document that we want to align it to a direction opposite to the natural direction off the language. Let's say this is an english text that follows the `ltr` diection. We would do something like that usually using the following
+Let's say we have a paragraph in our document that we want to align it to a direction opposite to the natural direction off the language. Let's say this is an english text that follows the `ltr` direction. We would do something like that usually using the following
 
 ```html
 <article>
@@ -108,7 +108,7 @@ With logical properties we can do better. Consider the following:
 }
 ```
 
-The `-inline-start` part will evalutes to the beginning of the horizontal axis of the image. In case of `ltr` that would mean `left` and in case of `rtl` that would mean `right`. The `start` and `end` should be obvious by now, what is with the word `inline` and why do we need it? To understand it, we need to talk about something called CSS writing mode. Jen Simmons wrote an excellent article about that topic (you can read it [here](https://24ways.org/2016/css-writing-modes/)). Basically we can use it to define writing direction. Some languages like the Chinese, Korean and Japanese can be written vertically from top to bottom. CSS writing modes allow us to control that flow. If you take a look at the following paragraph:
+The `-inline-start` part will evaluates to the beginning of the horizontal axis of the image. In case of `ltr` that would mean `left` and in case of `rtl` that would mean `right`. The `start` and `end` should be obvious by now, what is with the word `inline` and why do we need it? To understand it, we need to talk about something called CSS writing mode. Jen Simmons wrote an excellent article about that topic (you can read it [here](https://24ways.org/2016/css-writing-modes/)). Basically we can use it to define writing direction. Some languages like the Chinese, Korean and Japanese can be written vertically from top to bottom. CSS writing modes allow us to control that flow. If you take a look at the following paragraph:
 
 ![](../images/css/logical-properties-values.png) 
 
@@ -116,7 +116,7 @@ You can clearly identify the top, bottom, left and right edges of the block. Wha
 
 ![](../images/css/logical-properties-values-flipped.png)
 
-When we talk about top, do we mean the top as in the top part or the part to the right? It become confusing how we identify the four directions. Let's look at them from a different prespective, in a normal writing conditions, the vertical axis will have the suffix `-block` and the horizontal axis will have the suffix `inline` both followed by `start` or `end`. Like the following:
+When we talk about top, do we mean the top as in the top part or the part to the right? It become confusing how we identify the four directions. Let's look at them from a different perspective, in a normal writing conditions, the vertical axis will have the suffix `-block` and the horizontal axis will have the suffix `inline` both followed by `start` or `end`. Like the following:
 
 ![image](../images/css/logical-properties-values-detailed.png)
 
@@ -154,7 +154,7 @@ article img {
 
 This might look confusing, the second value in the shorthand values for margin should be the right. When we use the `logical` keyword, it changes how the values are assigned. Normally they follow a clockwise pattern. With the `logical` keyword, if the element is `rtl` the values are assigned in a clockwise pattern. In the `ltr` case they are assigned in a counter-clockwise pattern.
 
-Logical properties also allows us to apply values to a certain axis so we now have `margin-inline` and `margin-block` for the horizontal and vertical axis respectively.
+Logical properties also allow us to apply values to a certain axis so we now have `margin-inline` and `margin-block` for the horizontal and vertical axis respectively.
 
 Now what about the positions? The properties names changed completely as follow:
 
@@ -203,7 +203,7 @@ Logical properties and values are widely supported by most of the browsers excep
 
 Thanks to PostCSS, we can start using all this magic today! Jonathan Neal wrote this [lovely PostCSS plugin](https://github.com/jonathantneal/postcss-logical-properties) that enables us to write the new properties / values and transform it to something the browsers can understand. The plugin works on a three different stages:
 
-1. Convert the new syntax to what the browsers can understand and uses the `:dir` pesudo-class to create different output to `ltr` and `rtl`.
+1. Convert the new syntax to what the browsers can understand and uses the `:dir` pseudo-class to create different output to `ltr` and `rtl`.
 
 2. Uses the `:dir` pseudo-class [PostCSS plugin](https://github.com/jonathantneal/postcss-dir-pseudo-class) to transform it to attribute selector like the following:
 
@@ -218,7 +218,7 @@ Thanks to PostCSS, we can start using all this magic today! Jonathan Neal wrote 
 
 3. Uses the PostCSS [nested plugin](https://github.com/postcss/postcss-nested) that allows us to transform nested selectors to one-line selectors (like what we use in other CSS preprocessors).
 
-PostCSS works with any workflow. You can try it with Grunt, Gulp or Webpack. I will close the article by saying that the benefit I have seen worth making the shift. Building multidirectional websites takes time for development and testing. The ways we followed before was either taking care of both directions while development or finish one direction then move to the second one. None was suitable for big projects sadly and they introduced room for errors. With logical properties and values you write your code once and it works for both directions without any consideration.
+PostCSS works with any workflow. You can try it with Grunt, Gulp or Webpack. I will close the article by saying that the benefit I have seen worth making the shift. Building multidirectional websites takes time for development and testing. The ways we followed before were either taking care of both directions while development or finish one direction then move to the second one. None was suitable for big projects sadly and they introduced room for errors. With logical properties and values you write your code once and it works for both directions without any consideration.
 
 ## References
 
