@@ -40,7 +40,7 @@ li {
 
 ### Type / Element selector
 
-Type selector target specific elements according to their matching tag. It simply consists of the name of the tag usd in the HTML. For instance if you want to change the `font-family` for all the `h1` elements in the page that can be done using something like:
+Type selector target specific elements according to their matching tag. It simply consists of the name of the tag used different in the HTML. For instance if you want to change the `font-family` for all the `h1` elements in the page that can be done using something like:
 
 ```css
 h1 {
@@ -77,15 +77,15 @@ This will make all input elements look the same regardless of their type. The on
 <input type="radio" />
 ```
 
-I don't think anyone ever saw a checkbox 300px wide. This end by either setting differrent style to these elements by other means (class selectors, attribute selectors) or using a more appropriate selector for the elements we are targeting.
+I don't think anyone ever saw a checkbox 300px wide. This end by either setting different style to these elements by other means (class selectors, attribute selectors) or using a more appropriate selector for the elements we are targeting.
 
-It's worth mentioning that element selectors are **case-insenstive** but it is always discouraged to utilize uppercase when you write CSS in general.
+It's worth mentioning that element selectors are case-insensitive but it is always discouraged to utilize uppercase when you write CSS in general.
 
 ### Class selector 
 
 An HTML class is an attribute used to landmark an element in order to select it. It's like a label we give to the elements to facilitate the way of *selecting* them in the future.
 
-Classes are **case-senstive** and are writting by prefixing the class name with a dot:
+Classes are case-sensitive and are writing by prefixing the class name with a dot:
 
 ```html
 <style>
@@ -104,11 +104,11 @@ Most of the time we target elements using class selectors. Even most of CSS writ
 
 ### Pseudoclass selectors
 
-The word pseudo means something something that appear like something else that confuse the observer on the first sight. Pseudoclasses are combined to other selectors to modify their style when they are on a certain *state*. This is why I like to call them **state selectors**.
+The word pseudo means something something that appear like something else that confuse the observer on the first sight. Pseudo-classes are combined to other selectors to modify their style when they are on a certain *state*. This is why I like to call them **state selectors**.
 
 #### `:hover` selector
 
-Perhapse the most commonly known selector of this type is the `:hover` selector. The `:hover` targets an element when the user move the pointer's cursor over it. Consider the following example:
+Perhaps the most commonly known selector of this type is the `:hover` selector. The `:hover` targets an element when the user move the pointer's cursor over it. Consider the following example:
 
 ```html
 <style>
@@ -124,7 +124,7 @@ When the user move the pointer over the `<a>` tag, the underlying text below the
 
 > 📜 **A little bit of history **
 >
-> The `:hover` selector is supported on every type of elements but that wasn't always the case. On IE6, the `:hover` selector used to work on anchor tags only. Also, IE7 and IE8 used to ignore the `:hover` selector if a strict doctype is not used.  Developers used to mimic the hover effect by using JavaScript to add and remove classes like `.hover` on `mouseEnter` / `mouseLeave` events on elements. This was a commonly used technique when creating drop down menus as the the submenu was being displayed when the user hover the `li` and not the `a` inside. This technique was first described on [a list a part](http://alistapart.com/article/dropdowns) and was called Suckerfish Dropdowns back in 2003!
+> The `:hover` selector is supported on every type of elements but that wasn't always the case. On IE6, the `:hover` selector used to work on anchor tags only. Also, IE7 and IE8 used to ignore the `:hover` selector if a strict doctype is not used.  Developers used to mimic the hover effect by using JavaScript to add and remove classes like `.hover` on `mouseEnter` / `mouseLeave` events on elements. This was a commonly used technique when creating drop down menus as the the submenu was being displayed when the user hover the `li` and not the `a` inside. This technique was first described on [a list a part](http://alistapart.com/article/dropdowns) and was called Suckerfish Dropdown back in 2003!
 
 #### `:focus` selector
 
@@ -134,7 +134,7 @@ The focus selector plays a great role on making your document more accessible. E
 
 ![](../images/css/selectors-focus-initial.png)
 
-While they seem annoying for anyone from a design prespective, this outlines helps bringing the user attention to the field being focused. It's common to see novice developers getting rid of these lines by using:
+While they seem annoying for anyone from a design perspective, this outlines helps bringing the user attention to the field being focused. It's common to see novice developers getting rid of these lines by using:
 
 ```css
 input:focus {
@@ -152,15 +152,15 @@ Another common issue reported to developers is to remove the dotted outline arou
 
 ![](../images/css/selectors-focus-links.png)
 
-This outline is the style that Firefox applies to the links that recieve focus. OK let's get something off the road first ... If someone is to discover something like that then that user must've used the tabs to navigate the page. Anyone who would use something like that will fall in love quickly with the landmark  that says where you are now exactly ... Why would anyone want to remove that?
+This outline is the style that Firefox applies to the links that receive focus. OK let's get something off the road first ... If someone is to discover something like that then that user must've used the tabs to navigate the page. Anyone who would use something like that will fall in love quickly with the landmark  that says where you are now exactly ... Why would anyone want to remove that?
 
-The answer is, some people discover this without using the tab for navigation. For instance, if you clicked a link that open in a new browser window then you close that window you will find that the link has recieved focus. The user knows nothing about the focus state nor using the keyboard for navigation. S/he think it's odd and report it.
+The answer is, some people discover this without using the tab for navigation. For instance, if you clicked a link that open in a new browser window then you close that window you will find that the link has received focus. The user knows nothing about the focus state nor using the keyboard for navigation. S/he think it's odd and report it.
 
 Another common use for the focus state is to mimic the behaviors shown on hover. Below is a screenshot taken from [the documentation](https://getbootstrap.com/docs/4.1/components/tooltips/) of the popular UI toolkit Bootstrap featuring the tooltip component.
 
 ![](../images/css/selectors-focus-tooltip.png)
 
-Tooltips are displayed on hover. To improve accessibility, the tooltip is displayed for those who focus the element as well. Can you figure out which one received the focus and which one received the hover? Correct; the tooltip at the top was triggered using the focus (can you see the focus outline on the link?) and the one at the bottom received the hoverr (notice the underline added to to this particular link). Bootstrap uses JavaScript to display these information but the same can be applied with CSS using focus state and a differet type of selectors we will discuss later on.
+Tooltips are displayed on hover. To improve accessibility, the tooltip is displayed for those who focus the element as well. Can you figure out which one received the focus and which one received the hover? Correct; the tooltip at the top was triggered using the focus (can you see the focus outline on the link?) and the one at the bottom received the hover (notice the underline added to to this particular link). Bootstrap uses JavaScript to display these information but the same can be applied with CSS using focus state and a different type of selectors we will discuss later on.
 
 The last think about focus is that it can be used to **bring user attention to an element that looks inert by default** although it can be interactive. Consider the following HTML of an accordion component on a web page:
 
@@ -191,9 +191,9 @@ Accordions are common on the web, they help us save space on the page and help t
 
 #### `:focus-within` selector
 
-`:focus-within` is a relatively new pseudo-class selector. It matches an element that have a child element within its tree that recieved focus. This selector has been a dream for many developers who cared about making their content accessible because it enables us to achieve effects and behaviors that weren't available without the use of JavaScript.
+`:focus-within` is a relatively new pseudo-class selector. It matches an element that have a child element within its tree that received focus. This selector has been a dream for many developers who cared about making their content accessible because it enables us to achieve effects and behaviors that weren't available without the use of JavaScript.
 
-A common problem it solves is the navigation of dropdown menus using keyboard. The submenu only displays using `:hover` on the parent `li` and can be made visible if its title recieve a focus. Once the focus move on to the submenu, the menu disappear because it is no longer recieving the focus nor the hover. To get a better understanding of the behaviour you can check [this pen](https://codepen.io/ahmadalfy/pen/ppJGBJ) and try to navigate it using the `tab` key.
+A common problem it solves is the navigation of dropdown menus using keyboard. The submenu only displays using `:hover` on the parent `li` and can be made visible if its title receive a focus. Once the focus move on to the submenu, the menu disappear because it is no longer receiving the focus nor the hover. To get a better understanding of the behavior you can check [this pen](https://codepen.io/ahmadalfy/pen/ppJGBJ) and try to navigate it using the `tab` key.
 
 Another common pattern this selector helps to solve is the customization of the `select` element. This technique was described by [filament group](https://github.com/filamentgroup/select-css) with a single flaw; you cannot change the caret's orientation when the `select` is opened. Using `:focus-within` can help you overcome that because when the select is opened, it will be focused and the wrapper can be selected using that selector to apply any style we want to the caret.
 
