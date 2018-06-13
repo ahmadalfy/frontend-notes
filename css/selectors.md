@@ -1,4 +1,4 @@
-# Selectors
+# [WORK IN PROGRESS] Selectors
 
 CSS selectors are the means that we utilize to target elements in our DOM tree and apply certain styles to these DOM nodes. The same DOM node can be selected by different types of selectors. It might look intimidating at the beginning but it gets easier to understand when you start working with them. Understanding how selectors work is a corner stone for writing elegant CSS.
 
