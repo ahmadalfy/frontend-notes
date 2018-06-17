@@ -215,13 +215,41 @@ A common problem it solves is the navigation of dropdown menus using keyboard. T
 
 Another common pattern this selector helps to solve is the customization of the `select` element. This technique was described by [filament group](https://github.com/filamentgroup/select-css) with a single flaw; you cannot change the caret's orientation when the `select` is opened. Using `:focus-within` can help you overcome that because when the select is opened, it will be focused and the wrapper can be selected using that selector to apply any style we want to the caret.
 
+#### `:active` selector
+
+This selector can be used to target an element being clicked. For instance, a button being clicked without releasing the mouse button. Once the button is released, it is no longer active. A common use for this selector is to mimic the effect of a button being pushed downward like the following:
+
+```html
+<style>
+    button {
+        background: #000;
+        color: #fff;
+        border: 0;
+        line-height: 30px;
+        padding: 0 30px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        transition: 0.5s transform ease;
+    }
+    button:active {
+        box-shadow: none;
+        transform: translate(2px, 2px, 0);
+    }
+</style>
+
+<button>Click me</button>
+```
+
+You can try it to see the effect [here](https://jsfiddle.net/f5rwk9ed/3/).
+
+⚠️ It's worth mentioning that new comers commonly misunderstand this selector of being used to apply specific style to the menu item that indicate the *active* page.
+
 ------
 
 Remaining:
 
 * Pseudo-classes
 
-  * `:active`, `:target`
+  * `:target`
   * Form pseudo-classes `:invalid`, `:required`, `:checked`
   * Links pseudo-classes `:link`, `:visited`
 
