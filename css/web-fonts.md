@@ -6,11 +6,43 @@ The problem with the fonts is that they are really expensive. It takes a designe
 
 In 2008 `@font-face` was implemented by Safari and Firefox and the road was being paved for custom fonts to come to the browsers. In 2009, [Typekit](https://typekit.com/) was founded (acquired by Adobe later on) and started offering high quality fonts with appropriate licenses for the usage on the web. Typekit published a post on their blog called [Serving and Protecting Fonts on the Web](https://blog.typekit.com/2009/07/21/serving-and-protecting-fonts-on-the-web/) explaining how they protect their fonts from being downloaded using different techniques. The growth of Typekit opened the door for other services to come to the surface and people started to get used to custom fonts on the internet. Time after time, the fear of piracy started to shrink. In 2010 Google launched [Google Fonts](https://fonts.google.com/) which now hosts more than 800 high quality font for anyone to use.
 
-These services were great as they offered new elegant and shiny fonts for everyone to use but they didn't let you use your own custom fonts on your website. Using a custom font on the web isn't as easy as installing a font on your machine, you will have to convert it first to an appropriate format that the browser can understand. In 2010 a popular service for hosting fonts called [FontSquirrel](http://fontsquirrel.com) (originally founded in 2009) started offering a free service that allows anyone to upload a custom font and it convert it to what was commonly became known as a *font-face kit*. We will talk more about the font formats in the next section.
+These services were great as they offered new elegant and shiny fonts for everyone to use but they didn't let you use your own custom fonts on your website. Using a custom font on the web isn't as easy as installing a font on your machine, you will have to convert it first to an appropriate format that the browser can understand. In 2010 a popular service for hosting fonts called [FontSquirrel](http://fontsquirrel.com) (originally founded in 2009) started offering a free service that allows anyone to upload a custom font and it convert it to what was commonly became known as a *font-face kit*.
+
+## `@font-face`
+
+We mentioned in the earlier section that the tools we use to generate the font-face kits generate different font formats. Typically, the output of the generated kit should be something similar to:
+
+```css
+@font-face {
+  font-family: 'Custom Font';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Custom Font'),
+       url('/fonts/file.woff2') format('woff2'), 
+       url('/fonts/file.woff') format('woff'),
+       url('/fonts/file.ttf') format('truetype'),
+       url('/fonts/file.eot') format('embedded-opentype');
+}
+```
+
+The declaration consists of:
+
+* `font-family` describes the font name. This is the name that we will eventually use it when we want to apply that custom font. It's common to wrap custom font names in quotes. According to the [W3C](https://www.w3.org/TR/css-fonts-3/#family-name-value) punctuation characters, digits at the start of the name should be escaped. To avoid escaping errors, it's always recommended to quote custom font names.
+* `font-style` tells the style of the font. This can either be normal or italic.
+* `font-weight` tells the weight of the font. The range from `thin` towards `black`.
+* `src` defines the path to the custom font files. It optionally starts with the local variant of the font then followed by the urls and formats of the provided font files. Why do we need to load all these formats? This is what we are going to discuss on the following section.
 
 ## Formats
 
-To be discussed
+Different browsers support different formats of font files. This is why we are declaring a list of different formats for the browsers to pick the one it can use. Browsers didn't agree to support a common format because of several reasons like licensing and other stuff. The timeline for the formats usage was like the following:
+
+* Older versions of IE started to support EOT format.
+* Until Safari 4 on iOS, SVG fonts was the only supported format. Its file size was the biggest (but compressed very well with gzip) and lacked [font-hinting](https://en.wikipedia.org/wiki/Font_hinting). It had a few bugs related to text selecting but it was the only way to display custom fonts on iPhone and iPad on this time.
+* Newer versions of IE (9 and above), Firefox, Chrome and Safari on Mac was supporting OTF and TTF.
+* Mozilla, Microsoft and Opera joined forced and proposed the Web Open Font Format (WOFF) which is OTF/TTF with metadata and compression. This format was created to be used on the web and it has an advantage over the other formats of being smaller in size. This format is widely supported on all modern browsers.
+* WOFF2 is the next generation of WOFF and it is 30% smaller in size. It is less widely supported than its predecessor.
+
+We don't use some formats like the EOT and SVG because it's unlikely to find users who still use old browsers that require these formats. You are most likely to encounter these formats in old code base. It's mostly limited now to WOFF2, WOFF and TTF/OTF.
 
 ## Generating custom font kits for the web
 
@@ -30,7 +62,7 @@ The period of the timeout varies between the different browsers. Some browsers l
 
 ## TODO
 
-- Different font families (serif, san-serif, monospace ...)
+- ~~Different font families (serif, san-serif, monospace ...)~~
 - More information about web safe fonts
 - Good popular font stacks
 - Chrome warning about falling to the next font on slower connections
@@ -55,5 +87,6 @@ The period of the timeout varies between the different browsers. Some browsers l
 
 ### References
 
+* [Fonts on the web](https://www.w3.org/Fonts/) - W3C
 * [Serving and Protecting Fonts on the Web](https://blog.typekit.com/2009/07/21/serving-and-protecting-fonts-on-the-web/) by Typekit
 * [Fighting the @font-face FOUT](https://www.paulirish.com/2009/fighting-the-font-face-fout/) by Paul Irish
