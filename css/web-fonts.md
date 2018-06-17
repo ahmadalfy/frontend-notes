@@ -36,10 +36,10 @@ The declaration consists of:
 
 Different browsers support different formats of font files. This is why we are declaring a list of different formats for the browsers to pick the one it can use. Browsers didn't agree to support a common format because of several reasons like licensing and other stuff. The timeline for the formats usage was like the following:
 
-* Older versions of IE started to support EOT format.
+* Older versions of IE started to support Embedded OpenType (EOT) format. EOT was proprietary to Microsoft then it was submitted to W3C to make it an open Web Standard.
 * Until Safari 4 on iOS, SVG fonts was the only supported format. Its file size was the biggest (but compressed very well with gzip) and lacked [font-hinting](https://en.wikipedia.org/wiki/Font_hinting). It had a few bugs related to text selecting but it was the only way to display custom fonts on iPhone and iPad on this time.
 * Newer versions of IE (9 and above), Firefox, Chrome and Safari on Mac was supporting OTF and TTF.
-* Mozilla, Microsoft and Opera joined forced and proposed the Web Open Font Format (WOFF) which is OTF/TTF with metadata and compression. This format was created to be used on the web and it has an advantage over the other formats of being smaller in size. This format is widely supported on all modern browsers.
+* Mozilla, Microsoft and Opera worked on a new standard together and proposed the Web Open Font Format (WOFF) which is OTF/TTF with metadata and compression. This format was created to be used on the web and it has an advantage over the other formats of being smaller in size. This format is widely supported on all modern browsers.
 * WOFF2 is the next generation of WOFF and it is 30% smaller in size. It is less widely supported than its predecessor.
 
 We don't use some formats like the EOT and SVG because it's unlikely to find users who still use old browsers that require these formats. You are most likely to encounter these formats in old code base. It's mostly limited now to WOFF2, WOFF and TTF/OTF.
