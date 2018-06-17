@@ -46,7 +46,11 @@ We don't use some formats like the EOT and SVG because it's unlikely to find use
 
 ## Generating custom font kits for the web
 
-To be discussed
+We mentioned earlier the service named [FontSquirrel](http://fontsquirrel.com) where you can go and upload your custom font (TTF/OTF) and generate the different formats in addition to the CSS you will need to use. It will check the font against a list of known or previously reported commercial fonts and if it isn't in that list it will generate the kit.
+
+I personally use another service called [onlinefontconverter.com](https://onlinefontconverter.com/) because it works very well with fonts for non-latin languages (like Arabic) unlike FontSquirrel.
+
+There is also a free desktop application called [FontPlop](https://www.fontplop.com/) but it works on Mac only.
 
 ## Custom fonts loading
 
@@ -63,7 +67,6 @@ The period of the timeout varies between the different browsers. Some browsers l
 ## TODO
 
 - ~~Different font families (serif, san-serif, monospace ...)~~
-- More information about web safe fonts
 - Good popular font stacks
 - Chrome warning about falling to the next font on slower connections
 - The CSS property to control the fallback behavior with screenshots `font-display`
