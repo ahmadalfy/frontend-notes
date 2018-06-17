@@ -32,6 +32,32 @@ The declaration consists of:
 * `font-weight` tells the weight of the font. The range from `thin` towards `black`.
 * `src` defines the path to the custom font files. It optionally starts with the local variant of the font then followed by the urls and formats of the provided font files. Why do we need to load all these formats? This is what we are going to discuss on the following section.
 
+Sometimes we use a property called `unicode-range` to restrict rendering a range of characters to a specific font. This technique is commonly used in Arabic websites when the font that is used in the design doesn't have a Hindi glyphs for the numbers. Most Arab countries and users uses Hindi glyphs (١٢٣٤٥٦٧٨٩٠) and not Arabic numbers (1234567890). To fix that, we use a custom font that contain the glyphs we want to use (like [GE SS Two](https://fonts2u.com/ge-ss-two-bold.font)) and restrict it to only render the numbers like the following:
+
+```css
+/* The font used for the Aarbic text */
+@font-face {
+  font-family: 'Custom Arabic Font';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Custom Arabic Font'),
+       url('/fonts/file.woff2') format('woff2'), 
+       url('/fonts/file.woff') format('woff');
+}
+
+/* The font used for the Hindi numbers. Note that we use the same family name as the font we used above */
+@font-face {
+  font-family:"Custom Arabic Font";
+  unicode-range: U+0030-0039;
+  src: url('/fonts/GE-SS-TWO.woff2') format('woff2'), 
+       url('/fonts/GE-SS-TWO.woff') format('woff');
+}
+```
+
+As you have noticed, we used the same `font-family` value for both fonts with the addition off the `unicode-range` for the font that will be used to render the numbers. This way we ensure that the numbers will always be rendered as we want.
+
+Note that the `U` character written at the beginning of the value should be in uppercase otherwise it will be an invalid values in some browsers.
+
 ## Formats
 
 Different browsers support different formats of font files. This is why we are declaring a list of different formats for the browsers to pick the one it can use. Browsers didn't agree to support a common format because of several reasons like licensing and other stuff. The timeline for the formats usage was like the following:
