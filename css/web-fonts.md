@@ -107,7 +107,7 @@ The `font-display` descriptor is used to control the behavior of the browsers wh
 * `fallback` will give a very short block-period (100ms) and a short swap-period (3 seconds). That means that if the text will be rendered with the fallback font at first if the font is not loaded. It will be swapped with the custom font if it is downloaded within 3 seconds. After that, the font will not be used to render the text again and it will keep using the fallback font.
 * `optional` will give a very short block-period (100ms) and a zero second swap period. That means that the custom font will only be used if it has been downloaded and cached. Otherwise, the fallback font will be used. The browser can decide to abort downloading the font if the connectivity is low or the browser is operating under the [Data Saving](https://support.google.com/chrome/answer/2392284?hl=en&co=GENIE.Platform%3DDesktop&oco=0) mode. With this option, the custom text will be only used on subsequent visits to the website pages after the font is downloaded and cached.
 
-Perhaps now the question to answer, which one should I use?
+To see the effect of this descriptor in action, you can check this [YouTube video](https://www.youtube.com/watch?v=PuGmlOe5wRk) using Chrome DevTools and the [network throttling](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference#throttling) options. Perhaps now the question to answer, which one should I use?
 
 * `block` usage should be **limited to a few cases where using the custom font is crucial**. Consider an icon font that uses regular character or unicode characters to render icons. While the font is being downloaded and the `font-display` is set to `swap`; unrelated characters or squares will show up. `block` will be perfect and cause less confusion to the reader.
 * `swap` usage should be **limited for short text** (like titles, logos). If we used `swap` on long chunks of text it will be very confusing for the reader to follow the text after the re-render happens. The size of the characters varies across the different font. If the difference in size between the two fonts is noticeable, the text will be rearranged in the page and the reader might lose track of where he stopped before the re-rendering happens.
@@ -118,6 +118,10 @@ Perhaps now the question to answer, which one should I use?
 
 - Different syntax used for loading custom fonts along with its corresponding weights and the local reference
 - Fonts and CORS
+- Add note about `@font-feature-values` rule
+- Identifying rendered font in Chrome
+- Optimizing font loading with link preloading
+- Font Loading API
 - A little bit about what we used to use before custom fonts (cufón, sIFR, image replacement techniques ...)
 
 ## Notes
