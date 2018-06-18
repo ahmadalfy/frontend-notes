@@ -1,6 +1,6 @@
 # [WORK IN PROGRESS] Web Fonts
 
-Web fonts play a great role on web design today. Thanks to the `@font-face` property, we are able to use all these beautiful fonts we want. It took us so long to get there. For a long time we were limited to a set of fonts that we used to call *web safe* fonts. Suriprisingly the reason wasn't a technical one.
+Web fonts play a great role on web design today. Thanks to the `@font-face` rule, we are able to use any custom font we want. It took us so long to get there. For a long time we were limited to a set of fonts that we used to call *web safe* fonts. Surprisingly the reason wasn't a technical one.
 
 The problem with the fonts is that they are really expensive. It takes a designer a lot of practice and patience to produce a typeface. Back in 1998 the CSS Working Group proposed the `@font-face` rule to allow the usage of custom fonts on the web. IE4 implemented that feature but it didn't succeed. By the end, who would risk and put a font that costs hundreds or thousands of dollars on the web so that others can download it and use it for free?
 
@@ -25,15 +25,15 @@ We mentioned in the earlier section that the tools we use to generate the font-f
 }
 ```
 
-The declaration consists of:
+The declaration consists of the following descriptors:
 
 * `font-family` describes the font name. This is the name that we will eventually use it when we want to apply that custom font. It's common to wrap custom font names in quotes. According to the [W3C](https://www.w3.org/TR/css-fonts-3/#family-name-value) punctuation characters, digits at the start of the name should be escaped. To avoid escaping errors, it's always recommended to quote custom font names.
 * `font-style` tells the style of the font. This can either be normal or italic.
 * `font-weight` tells the weight of the font. The range from `thin` towards `black`.
 * `src` defines the path to the custom font files. It optionally starts with the local variant of the font then followed by the urls and formats of the provided font files. Why do we need to load all these formats? This is what we are going to discuss on the following section.
-* `font-display` determines how a font face is displayed based on whether and when it is downloaded and ready to use. More information about this property on the fonts loading section below.
+* `font-display` determines how a font face is displayed based on whether and when it is downloaded and ready to use. More information about this descriptor on the fonts loading section below.
 
-Sometimes we use a property called `unicode-range` to restrict rendering a range of characters to a specific font. This technique is commonly used in Arabic websites when the font that is used in the design doesn't have a Hindi glyphs for the numbers. Most Arab countries and users uses Hindi glyphs (١٢٣٤٥٦٧٨٩٠) and not Arabic numbers (1234567890). To fix that, we use a custom font that contain the glyphs we want to use (like [GE SS Two](https://fonts2u.com/ge-ss-two-bold.font)) and restrict it to only render the numbers like the following:
+Sometimes we use a descriptor called `unicode-range` to restrict rendering a range of characters to a specific font. This technique is commonly used in Arabic websites when the font that is used in the design doesn't have a Hindi glyphs for the numbers. Most Arab countries and users uses Hindi glyphs (١٢٣٤٥٦٧٨٩٠) and not Arabic numbers (1234567890). To fix that, we use a custom font that contain the glyphs we want to use (like [GE SS Two](https://fonts2u.com/ge-ss-two-bold.font)) and restrict it to only render the numbers like the following:
 
 ```css
 /* The font used for the Aarbic text */
@@ -58,6 +58,8 @@ Sometimes we use a property called `unicode-range` to restrict rendering a range
 As you have noticed, we used the same `font-family` value for both fonts with the addition off the `unicode-range` for the font that will be used to render the numbers. This way we ensure that the numbers will always be rendered as we want.
 
 Note that the `U` character written at the beginning of the value should be in uppercase otherwise it will be an invalid values in some browsers.
+
+> We used the term descriptor instead of properties within the @font-face rule. Refer to [CSS Syntax](syntax.md) to understand the difference between both.
 
 ## Formats
 
