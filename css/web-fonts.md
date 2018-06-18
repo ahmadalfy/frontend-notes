@@ -95,7 +95,7 @@ The moment the browser tries to use a font for the first time on a page, the fon
 * **Font swap-period**. During this period, if the font file is not downloaded, the text will be rendered using the fallback font. If the font file is downloaded successfully during, the font will be used normally.
 * **Font failure-period**. If the font file is not downloaded the font is marked as a failed load and the fallback font will be used.
 
-Each period varies according to the browsers. Some browsers like IE will render the fallback font first and render the custom font once it is ready. Chrome and Firefox will have a block-period of 3 seconds then either use the fallback font or the custom font. Safari on iOS have a relatively long block-period of 30 seconds before using the fallback font. Because of these variation, a standard was developed to control this behavior using the `font-display` descriptor.
+Each period varies according to the browsers. Some browsers like IE will render the fallback font first and render the custom font once it is ready. Chrome and Firefox will have a block-period of 3 seconds then either use the fallback font or the custom font. Safari on iOS have a relatively long block-period of 30 seconds before using the fallback font. Because of these variation, a standard was developed (currently a working draft) to control this behavior using the `font-display` descriptor.
 
 ### `font-display` descriptor
 
@@ -106,6 +106,8 @@ The `font-display` descriptor is used to control the behavior of the browsers wh
 * `swap` will gives a very short block-period (100ms) and an infinite swap period. That means that the browser will render the text immediately with the fallback if the font files aren't downloaded and will render the text again using the custom font if it is downloaded.
 * `fallback` will give a very short block-period (100ms) and a short swap-period (3 seconds). That means that if the text will be rendered with the fallback font at first if the font is not loaded. It will be swapped with the custom font if it is downloaded within 3 seconds. After that, the font will not be used to render the text again and it will keep using the fallback font.
 * `optional` will give a very short block-period (100ms) and a zero second swap period. That means that the custom font will only be used if it has been downloaded and cached. Otherwise, the fallback font will be used. The browser can decide to abort downloading the font if the connectivity is low or the browser is operating under the [Data Saving](https://support.google.com/chrome/answer/2392284?hl=en&co=GENIE.Platform%3DDesktop&oco=0) mode. With this option, the custom text will be only used on subsequent visits to the website pages after the font is downloaded and cached.
+
+Perhaps now the question to answer, which one should I use? Most of the authors will 
 
 ## TODO
 
