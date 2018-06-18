@@ -31,6 +31,7 @@ The declaration consists of:
 * `font-style` tells the style of the font. This can either be normal or italic.
 * `font-weight` tells the weight of the font. The range from `thin` towards `black`.
 * `src` defines the path to the custom font files. It optionally starts with the local variant of the font then followed by the urls and formats of the provided font files. Why do we need to load all these formats? This is what we are going to discuss on the following section.
+* `font-display` determines how a font face is displayed based on whether and when it is downloaded and ready to use. More information about this property on the fonts loading section below.
 
 Sometimes we use a property called `unicode-range` to restrict rendering a range of characters to a specific font. This technique is commonly used in Arabic websites when the font that is used in the design doesn't have a Hindi glyphs for the numbers. Most Arab countries and users uses Hindi glyphs (١٢٣٤٥٦٧٨٩٠) and not Arabic numbers (1234567890). To fix that, we use a custom font that contain the glyphs we want to use (like [GE SS Two](https://fonts2u.com/ge-ss-two-bold.font)) and restrict it to only render the numbers like the following:
 
@@ -78,25 +79,34 @@ I personally use another service called [onlinefontconverter.com](https://online
 
 There is also a free desktop application called [FontPlop](https://www.fontplop.com/) but it works on Mac only.
 
-## Custom fonts loading
+## Fonts loading
 
-The browser doesn't download the font files unless it tries to render some text that require that font. In other words, if your CSS file reference the bold weight of the font `Roboto` but the current page the user is visiting doesn't have any bold text, the font will not be downloaded. This is actually good because it saves the bandwidth and ensure that only the needed font weights/families are downloaded.
+The browser doesn't download the font files unless it tries to render text that require that font. In other words, if your CSS file reference the bold weight of the font `Roboto` but the current page the user is visiting doesn't have any bold text, the font will not be downloaded. This is actually good because it saves the bandwidth and ensure that only the needed font weights/families are downloaded.
 
-Because fonts aren't downloaded until required, this sometimes leads to what we call **Flash of Invisible Text (FOIT)** and **Flash of Unstyled Text (FOUT)**. This phenomena is handled differently across different browsers. Some browsers follow the following approach:
+Because fonts aren't downloaded until required, this sometimes leads to what we call **Flash of Invisible Text (FOIT)** and **Flash of Unstyled Text (FOUT)**.  In other words, text space being preserved but the text itself is invisible then uses another font. This happens because browsers follow different policies for rendering text while the font is being downloaded. Let's take a look at the font display timeline.
 
-* Hiding the text while preserving its space for sometime until the request timeout or the font loads
-* If the request times out due to either a slow connection or failure to load the font, it will fallback to the next font in the font stack defined in the CSS.
-* If the font loads after the timeout, it swap the font with the newly downloaded font
+### Font display timeline
 
-The period of the timeout varies between the different browsers. Some browsers like Safari get stuck and hide the text infinitely until the font is downloaded. Other browsers like Chrome gives it three-seconds before falling back to the next font. FireFox doesn't have a timeout, it will attempt to draw the text using the available font till the new font is downloaded.
+The moment the browser tries to use a font for the first time on a page, the font files download timer is started. This timer advances through three periods of time associated with the font:
+
+* **Font block-period**. During this period if the font file is not loaded, The text trying to use that font will use be invisible. If the font is successfully downloaded during the block-period, the font will be used normally.
+* **Font swap-period**. During this period, if the font file is not downloaded, the text will be rendered using the fallback font. If the font file is downloaded successfully during, the font will be used normally.
+* **Font failure-period**. If the font file is not downloaded the font is marked as a failed load and the fallback font will be used.
+
+Each period varies according to the browsers. Some browsers like IE will render the fallback font first and render the custom font once it is ready. Chrome and Firefox will have a block-period of 3 seconds then either use the fallback font or the custom font. Safari on iOS have a relatively long block-period of 30 seconds before using the fallback font. Because of these variation, a standard was developed to control this behavior using the `font-display` descriptor.
+
+### `font-display` descriptor
+
+The `font-display` descriptor is used to control the behavior of the browsers when downloading custom fonts and rendering text. The `font-display` descriptor is used inside the `@font-face` rule and accept one of the following values:
+
+* `auto` is the default value. This will leave the display to the policy defined by browsers. Most of the browsers have a default policy similar to `block`.
+* `block` will give a short block-period (3 seconds) and an infinite swap-period. That means that the browser will render invisible text at first if the font is not downloaded for 3 seconds. During this period if the font is downloaded, it will use the font once it is downloaded. If it couldn't download the files, it will use the fallback font.
+* `swap` will gives a very short block-period (100ms) and an infinite swap period. That means that the browser will render the text immediately with the fallback if the font files aren't downloaded and will render the text again using the custom font if it is downloaded.
+* `fallback` will give a very short block-period (100ms) and a short swap-period (3 seconds). That means that if the text will be rendered with the fallback font at first if the font is not loaded. It will be swapped with the custom font if it is downloaded within 3 seconds. After that, the font will not be used to render the text again and it will keep using the fallback font.
+* `optional` will give a very short block-period (100ms) and a zero second swap period. That means that the custom font will only be used if it has been downloaded and cached. Otherwise, the fallback font will be used. The browser can decide to abort downloading the font if the connectivity is low or the browser is operating under the [Data Saving](https://support.google.com/chrome/answer/2392284?hl=en&co=GENIE.Platform%3DDesktop&oco=0) mode. With this option, the custom text will be only used on subsequent visits to the website pages after the font is downloaded and cached.
 
 ## TODO
 
-- ~~Different font families (serif, san-serif, monospace ...)~~
-- Good popular font stacks
-- Chrome warning about falling to the next font on slower connections
-- The CSS property to control the fallback behavior with screenshots `font-display`
-- Verification of the handling of each browser
 - Different syntax used for loading custom fonts along with its corresponding weights and the local reference
 - Fonts and CORS
 - A little bit about what we used to use before custom fonts (cufón, sIFR, image replacement techniques ...)
