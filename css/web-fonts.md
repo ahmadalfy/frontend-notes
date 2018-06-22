@@ -114,6 +114,8 @@ To see the effect of this descriptor in action, you can check this [YouTube vide
 * `fallback` should be **used for large pieces of text**. Ideally the focus on the body text shouldn't be how the font's *look*. The user shouldn't be disturbed by the text rearrangement when the new font is swapped. The only problem with this technique is to explain to non-techie customers you are building a platform for "why is the body text sometimes looks different".
 * `optional` is the best if accessibility is your top priority. It's similar to `fallback` but stresses more on getting the text rendered with the least bandwidth usage.
 
+> The numbers mentioned above (3s and 100ms for blocking) aren't defined by the specs, they are just a recommendation. Google Chrome change this time adaptively to improve performance on slow connections if `font-display` is set to `auto`. This manifest as a console warning/error. You can read more about it [here](https://www.chromestatus.com/feature/5636954674692096).
+
 ## TODO
 
 - Different syntax used for loading custom fonts along with its corresponding weights and the local reference
