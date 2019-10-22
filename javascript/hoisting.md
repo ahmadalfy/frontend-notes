@@ -2,7 +2,55 @@
 
 ## What is hoisting
 
-Hoisting mean that **variable** and **function declarations** are physically moved to the top of our code, but this is not in fact what happens. Instead, the variable and function declarations are put into memory during the *compile* phase, but stay exactly where we typed them.
+Before starting to explain what that is, let's talk first about the compilation phase of Javascript.
+
+### Example code
+
+```javascript
+var foo = "bar";
+ 
+function bar() {
+    var foo = "baz";
+ 
+    function baz(foo) {
+        foo = "bam";
+        bam = "yay";
+    }
+    baz(); 
+}
+ 
+bar();
+console.log(foo);
+console.log(bam);
+baz();
+```
+
+#### Compilation phase
+for this compilation phase let's stick to Kyle Simpson's explanation.
+
+In the Global scope:
+- Hey global scope, I have a declaration for variable foo.. so the global scope will register it.
+- Hey global scope, I have a bar() function declaration.. it will be registered in the global scope
+
+now we enter the scope of bar:
+- Hey scope of bar, I have a declaration for variable foo … so the scope of bar will register it.
+- Hey scope of bar, I have a baz() function declaration … so the scope of bar will register it
+
+now we enter the scope of baz
+- Hey scope of baz, I have a declaration for identifier called foo … so the scope of baz will register it.
+
+This ends the compilation phase:
+
+Scope   |  declaration |   value
+------  |  ----------- |  -----------
+global  |  foo         |   variable
+global  |  bar         |   function
+bar     |  foo         |   variable
+bar     |  baz         |   function
+baz     |  foo         |   variable
+
+
+Now back to that word on top, Hoisting basically means that **variable** and **function declarations** are physically moved to the top of our code, but this is not in fact what happens. Instead, the variable and function declarations are put into memory during the *compile* phase, but stay exactly where we typed them.
 
 Example:
 
